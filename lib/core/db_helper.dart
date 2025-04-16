@@ -20,5 +20,28 @@ class DBHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, '')
   }
+
+
+// create data base class 3 tables student table book table linking table include the witrhdrawn date an return date into linking table
+
+
+// read all books function
+
+
+// insert into student table
+
+
+//seed data function
+
+
+//insert into linking table
+
+
+
+
+
+// toggle withdrawn
+
+
 }
 
