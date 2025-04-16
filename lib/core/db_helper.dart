@@ -72,16 +72,19 @@ Future<void> _createDatabase(Database db, int version) async{
 // insert into student table
 
 
-//seed data function
+//seed data function a create book function being clled 7-10 to have books in database
 
 
-//insert into linking table
+//insert into withdrawn table
 
 
+// delete from withdrawn table
 
 
+// get student by student number  and password
 
-// toggle withdrawn
+
+// update withdrawn this will change the bool in the books table
 
 
 }
