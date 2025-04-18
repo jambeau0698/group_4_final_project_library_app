@@ -22,6 +22,7 @@ class NavMenuState extends State<NavigationMenu> {
       appBar: AppBar(
         title: Text("Library App"),
       ),
+
       body: pages[currentPageIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPageIndex,
