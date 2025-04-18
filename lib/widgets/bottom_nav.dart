@@ -4,18 +4,17 @@ import 'package:group_4_final_project_library_app/views/books_page.dart';
 import 'package:group_4_final_project_library_app/views/account_page.dart';
 
 class NavigationMenu extends StatefulWidget {
+  final int initialPageIndex;
+
+  NavigationMenu({this.initialPageIndex = 0}); // default to 0 (Books)
+
   @override
   NavMenuState createState() => NavMenuState();
 }
 
 class NavMenuState extends State<NavigationMenu> {
-  int currentPageIndex = 0;
+  late int currentPageIndex;
 
-  final List<String> titles = [
-    "Available Books",
-    "Your Account",
-    ""
-  ];
   final List<Widget> pages = [
     BooksPage(),
     AccountPage(),
@@ -23,12 +22,17 @@ class NavMenuState extends State<NavigationMenu> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    currentPageIndex = widget.initialPageIndex;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(titles[currentPageIndex]),
+        title: Text("Library App"),
       ),
-
       body: pages[currentPageIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPageIndex,
