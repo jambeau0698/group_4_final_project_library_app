@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:group_4_final_project_library_app/views/about_us_page.dart';
 import 'package:group_4_final_project_library_app/views/books_page.dart';
+import 'package:group_4_final_project_library_app/views/account_page.dart';
 
 class NavigationMenu extends StatefulWidget {
   @override
