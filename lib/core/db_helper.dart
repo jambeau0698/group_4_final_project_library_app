@@ -86,6 +86,7 @@ class DBHelper {
       books.author,
       books.withdrawn,
 
+      withdrawn.withdrawId
       withdrawn.withdrawDate,
       withdrawn.dueDate
 
