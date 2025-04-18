@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:group_4_final_project_library_app/core/db_helper.dart';
+import 'package:group_4_final_project_library_app/core/user_logged_in.dart';
 import 'package:group_4_final_project_library_app/models/Book.dart';
+import 'package:group_4_final_project_library_app/widgets/bottom_nav.dart';
 
 class BookDetailPage extends StatefulWidget {
   final Book book;
@@ -93,14 +96,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
             const SizedBox(height: 16),
             Row(
               children: [
+                const SizedBox(width: 15),
                 const Text(
                   'Return Date: ',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 24),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 10),
                 Text(
-                  '${_selectedDate.toLocal()}'.split(' ')[0], // Format to just date
-                  style: const TextStyle(fontSize: 16),
+                  '${_selectedDate.toLocal()}'.split(' ')[0],
+                  style: const TextStyle(fontSize: 24),
                 ),
                 IconButton(
                   icon: const Icon(Icons.calendar_today),
@@ -119,13 +123,32 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   icon: const Icon(Icons.arrow_back),
                   label: const Text('Back'),
                 ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // TODO Withdraw logic
-                  },
-                  icon: const Icon(Icons.assignment_return),
-                  label: const Text('Withdraw'),
-                ),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      final dbHelper = DBHelper.dblibrary;
+
+                      try {
+                        await dbHelper.insertWithdrawal(
+                          studentId: LoggedInUser.loggedIn,
+                          bookId: widget.book.bookId,
+                          dueDate: _selectedDate,
+                        );
+
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (_) => NavigationMenu(initialPageIndex: 1,),
+                          ),
+                              (route) => false,
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Error withdrawing book: $e')),
+                        );
+                      }
+                    },
+                    icon: const Icon(Icons.assignment_return),
+                    label: const Text('Withdraw'),
+                  ),
               ],
             ),
           ],
