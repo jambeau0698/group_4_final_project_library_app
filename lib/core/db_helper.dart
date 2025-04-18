@@ -72,10 +72,10 @@ Future<void> _createDatabase(Database db, int version) async{
 }
 
 // read all books function
-  Future<List<Map<String, dynamic>>> getAllBooks() async {
+  Future<List<Book>> getAllBooks() async {
     final db = await libraryDatabase;
-
-    return await db.query('books');
+    final List<Map<String, dynamic>> maps = await db.query('books');
+    return maps.map((map) => Book.fromMap(map)).toList();
   }
 
 
