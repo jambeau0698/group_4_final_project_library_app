@@ -101,7 +101,8 @@ class DBHelper {
     final db = await libraryDatabase;
 
     // Check if the books table already has records
-    final countResult = await db.rawQuery('SELECT COUNT(*) as count FROM books');
+    final countResult =
+        await db.rawQuery('SELECT COUNT(*) as count FROM books');
     final count = Sqflite.firstIntValue(countResult);
 
     if (count != null && count > 0) {
@@ -184,7 +185,6 @@ class DBHelper {
     }
   }
 
-
 // delete from withdrawn table
   Future<DBResult> returnBook(int withdrawId) async {
     final db = await libraryDatabase;
@@ -245,4 +245,32 @@ class DBHelper {
   }
 
 // update withdrawn this will change the bool in the books table
+
+// get student by id needed for the account page
+  Future<Student?> getStudentById(int studentId) async {
+    final db = await libraryDatabase;
+
+    final List<Map<String, dynamic>> result = await db.query(
+      'student',
+      where: 'studentId = ?',
+      whereArgs: [studentId],
+    );
+
+    if (result.isNotEmpty) {
+      final studentInfo = result.first;
+
+      Student student = Student();
+      student.id = studentInfo['studentId'];
+      student.studentNumber = studentInfo['studentNumber'];
+      student.name = studentInfo['fullName'];
+      student.email = studentInfo['email'];
+      student.password = studentInfo['password'];
+      student.year = studentInfo['year'];
+      student.program = studentInfo['program'];
+
+      return student;
+    }
+
+    return null;
+  }
 }
