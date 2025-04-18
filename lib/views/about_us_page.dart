@@ -31,7 +31,7 @@ class AboutUsPage extends StatelessWidget {
             const SizedBox(height: 20),
 
             const Text(
-              'Welcome to our library app our mission is to create '
+              'Welcome to our library app, our mission is to create '
                   'an easy to understand and easy to use app for libraries.',
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.justify,

@@ -42,10 +42,13 @@ class _splashPageState extends State<splashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            Image.network(''),
+            Image.network(
+                'https://www.lucansouthparish.net/wp-content/uploads/2021/07/Welcome.jpg',
+            width: 300,
+            height: 200,),
             const SizedBox(height: 20),
             const Text(
-              "",
+              "Welcome to our Library",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],

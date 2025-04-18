@@ -68,11 +68,32 @@ class DBHelper {
   }
 
 // read all books function
-  Future<List<Map<String, dynamic>>> getAllBooks() async {
+  Future<List<Book>> getAllBooks() async {
     final db = await libraryDatabase;
-
-    return await db.query('books');
+    final List<Map<String, dynamic>> maps = await db.query('books');
+    return maps.map((map) => Book.fromMap(map)).toList();
   }
+
+  //Book details function to get a book with its withdrawl dates
+  Future<List<Map<String, dynamic>>> getBooksWithWithdrawDetails(Database db, String id) async {
+    return await db.rawQuery('''
+    SELECT 
+      books.bookID,
+      books.title,
+      books.genre,
+      books.description,
+      books.bookCover,
+      books.author,
+      books.withdrawn,
+
+      withdrawn.withdrawDate,
+      withdrawn.dueDate
+
+    FROM books
+    JOIN withdrawn ON books.bookID = withdrawn.bookId AND withdrawn.studentId = ${id}
+  ''');
+  }
+
 
 // insert into student table
   Future<DBResult> addStudent(Map<String, dynamic> studentDetails) async {
@@ -101,7 +122,8 @@ class DBHelper {
     final db = await libraryDatabase;
 
     // Check if the books table already has records
-    final countResult = await db.rawQuery('SELECT COUNT(*) as count FROM books');
+    final countResult =
+        await db.rawQuery('SELECT COUNT(*) as count FROM books');
     final count = Sqflite.firstIntValue(countResult);
 
     if (count != null && count > 0) {
@@ -184,7 +206,6 @@ class DBHelper {
     }
   }
 
-
 // delete from withdrawn table
   Future<DBResult> returnBook(int withdrawId) async {
     final db = await libraryDatabase;
@@ -244,5 +265,37 @@ class DBHelper {
     return null;
   }
 
-// update withdrawn this will change the bool in the books table
+
+
+// get student by id needed for the account page
+  Future<Student?> getStudentById(int studentId) async {
+    final db = await libraryDatabase;
+
+    final List<Map<String, dynamic>> result = await db.query(
+      'student',
+      where: 'studentId = ?',
+      whereArgs: [studentId],
+    );
+
+    if (result.isNotEmpty) {
+      final studentInfo = result.first;
+
+      Student student = Student();
+      student.id = studentInfo['studentId'];
+      student.studentNumber = studentInfo['studentNumber'];
+      student.name = studentInfo['fullName'];
+      student.email = studentInfo['email'];
+      student.password = studentInfo['password'];
+      student.year = studentInfo['year'];
+      student.program = studentInfo['program'];
+
+      return student;
+    }
+
+    return null;
+  }
+
+
+
+
 }
