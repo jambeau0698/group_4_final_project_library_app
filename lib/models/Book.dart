@@ -8,7 +8,7 @@ class Book{
       'author': author,
       'genre': genre,
       'description': description,
-      'imageUrl': coverArt,
+      'bookCover': coverArt,
     };
   }
 }
