@@ -17,7 +17,7 @@ class Book{
       map['author'],
       map['genre'],
       map['description'],
-      map['imageUrl'],
+      map['bookCover'],
     );
   }
 }
