@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:group_4_final_project_library_app/views/login_page.dart';
@@ -42,10 +43,10 @@ class _splashPageState extends State<splashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            Image.network(
-                'https://www.lucansouthparish.net/wp-content/uploads/2021/07/Welcome.jpg',
-            width: 300,
-            height: 200,),
+            Image.asset(
+              'assets/images/welcome.png',
+              width: 300,
+              height: 200,),
             const SizedBox(height: 20),
             const Text(
               "Welcome to our Library",
