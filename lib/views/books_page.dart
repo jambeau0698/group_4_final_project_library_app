@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:group_4_final_project_library_app/core/db_helper.dart';
 import 'package:group_4_final_project_library_app/models/Book.dart';
+import 'package:group_4_final_project_library_app/views/book_details_page.dart';
 
 
 class BooksPage extends StatelessWidget {
@@ -47,7 +48,15 @@ class BookGrid extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final book = books[index];
-          return Card(
+          return GestureDetector(
+              onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BookDetailPage(book: book),
+              ),
+            );
+          }, child: Card(
             elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -78,6 +87,7 @@ class BookGrid extends StatelessWidget {
                 ),
               ],
             ),
+          )
           );
         },
       ),
