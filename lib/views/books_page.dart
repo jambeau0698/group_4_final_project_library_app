@@ -3,18 +3,29 @@ import 'package:group_4_final_project_library_app/core/db_helper.dart';
 import 'package:group_4_final_project_library_app/models/Book.dart';
 
 
-class booksPage extends StatelessWidget{
-  DBHelper db = new DBHelper();
-  final Future<List<Book>> books = db.getAllBooks();
+class BooksPage extends StatelessWidget {
+  final DBHelper db = DBHelper.dblibrary;
 
- @override
- build(BuildContext context){
-   return Scaffold(
-     body: BookGrid(books: books),
-   );
- }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: FutureBuilder<List<Book>>(
+        future: db.getAllBooks(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No books found'));
+          } else {
+            return BookGrid(books: snapshot.data!);
+          }
+        },
+      ),
+    );
+  }
 }
-
 
 class BookGrid extends StatelessWidget {
   final List<Book> books;
