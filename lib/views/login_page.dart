@@ -4,6 +4,7 @@ import 'package:group_4_final_project_library_app/core/db_helper.dart';
 import 'package:group_4_final_project_library_app/models/Student.dart';
 import 'package:group_4_final_project_library_app/core/app_theme.dart';
 import 'package:group_4_final_project_library_app/views/books_page.dart';
+import 'package:group_4_final_project_library_app/views/sign_up_page.dart';
 
 
 class LoginPage extends StatefulWidget{
@@ -83,6 +84,18 @@ class LoginPageState extends State<LoginPage>{
                   onPressed: login,
                   child: Text('Login'),
               ),
+              TextButton(
+                  onPressed: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const SignUpPage()),
+                    );
+                  }, child: Text('Sign Up',
+             style: TextStyle(
+               color: Colors.blue,
+               decoration: TextDecoration.underline,
+             ),
+              )
+              )
             ],
           ),),
           ),
