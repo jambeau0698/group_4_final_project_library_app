@@ -75,7 +75,7 @@ class DBHelper {
   }
 
   //Book details function to get a book with its withdrawl dates
-  Future<List<Map<String, dynamic>>> getBooksWithWithdrawDetails(Database db) async {
+  Future<List<Map<String, dynamic>>> getBooksWithWithdrawDetails(Database db, String id) async {
     return await db.rawQuery('''
     SELECT 
       books.bookID,
@@ -90,7 +90,7 @@ class DBHelper {
       withdrawn.dueDate
 
     FROM books
-    JOIN withdrawn ON books.bookID = withdrawn.bookId
+    JOIN withdrawn ON books.bookID = withdrawn.bookId AND withdrawn.studentId = ${id}
   ''');
   }
 
