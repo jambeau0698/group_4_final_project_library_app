@@ -1,32 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:group_4_final_project_library_app/views/about_us_page.dart';
+import 'package:group_4_final_project_library_app/views/books_page.dart';
 
-class NavigationMenu extends StatefulWidget{
-  const NavigationMenu({super.key});
-  NavMenuState createState(){
-    return NavMenuState();
-  }
+class NavigationMenu extends StatefulWidget {
+  @override
+  NavMenuState createState() => NavMenuState();
 }
 
-class NavMenuState extends State<NavigationMenu>{
-  int currentPageIndex =0;
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        height: 80,
-        selectedIndex: currentPageIndex,
-        onDestinationSelected: (int index)
-        {setState(() {
-          currentPageIndex = index;
-        });},
+class NavMenuState extends State<NavigationMenu> {
+  int currentPageIndex = 0;
 
-        destinations: [
-          NavigationDestination(icon: Icon(Icons.home), label:'home'),
-          NavigationDestination(icon: Icon(Icons.person), label:'account'),
-          NavigationDestination(icon: Icon(Icons.info), label:'about us')
+  final List<Widget> pages = [
+    BooksPage(),
+    AccountPage(),
+    AboutUsPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Library App"),
+      ),
+      body: pages[currentPageIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentPageIndex,
+        onTap: (index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Books',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            label: 'About Us',
+          ),
         ],
       ),
-      body:Container(),
     );
   }
 }

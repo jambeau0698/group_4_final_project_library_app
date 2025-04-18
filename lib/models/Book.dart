@@ -21,3 +21,12 @@ class Book{
     );
   }
 }
+
+class withdrawnBook extends Book{
+  DateTime withdrawnDate, returnDate;
+
+  withdrawnBook(super.title, super.author, super.genre, super.description, super.coverArt, this.withdrawnDate, this.returnDate);
+  factory withdrawnBook.fromMap(Map<String, dynamic> map){
+    return withdrawnBook(map['title'], map['author'], map['genre'], map['description'],map['bookCover'],map['withdrawDate'],map['dueDate']);
+  }
+}

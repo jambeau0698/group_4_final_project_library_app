@@ -74,6 +74,27 @@ class DBHelper {
     return maps.map((map) => Book.fromMap(map)).toList();
   }
 
+  //Book details function to get a book with its withdrawl dates
+  Future<List<Map<String, dynamic>>> getBooksWithWithdrawDetails(Database db) async {
+    return await db.rawQuery('''
+    SELECT 
+      books.bookID,
+      books.title,
+      books.genre,
+      books.description,
+      books.bookCover,
+      books.author,
+      books.withdrawn,
+
+      withdrawn.withdrawDate,
+      withdrawn.dueDate
+
+    FROM books
+    JOIN withdrawn ON books.bookID = withdrawn.bookId
+  ''');
+  }
+
+
 // insert into student table
   Future<DBResult> addStudent(Map<String, dynamic> studentDetails) async {
     final db = await libraryDatabase;
