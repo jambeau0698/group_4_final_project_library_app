@@ -5,7 +5,7 @@ import 'package:group_4_final_project_library_app/models/Book.dart';
 
 class booksPage extends StatelessWidget{
   DBHelper db = new DBHelper();
-  final List<Book> books = db.getAllBooks();
+  final Future<List<Book>> books = db.getAllBooks();
 
  @override
  build(BuildContext context){
@@ -13,12 +13,11 @@ class booksPage extends StatelessWidget{
      body: BookGrid(books: books),
    );
  }
-
 }
 
 
 class BookGrid extends StatelessWidget {
-  final List<Book> books; // Your Book model should have `title` and `imageUrl`
+  final List<Book> books;
 
   const BookGrid({super.key, required this.books});
 
@@ -29,10 +28,10 @@ class BookGrid extends StatelessWidget {
       child: GridView.builder(
         itemCount: books.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // 2 columns
+          crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 1, // Makes the tiles square
+          childAspectRatio: 1,
         ),
         itemBuilder: (context, index) {
           final book = books[index];
