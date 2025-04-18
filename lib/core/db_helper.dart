@@ -86,7 +86,7 @@ class DBHelper {
       books.author,
       books.withdrawn,
 
-      withdrawn.withdrawId
+      withdrawn.withdrawId,
       withdrawn.withdrawDate,
       withdrawn.dueDate
 
@@ -118,7 +118,7 @@ class DBHelper {
     }
   }
 
-//seed data function a create book function being clled 7-10 to have books in database
+//seed data function a create book function being called 7-10 to have books in database
   Future<DBResult> addBooks() async {
     final db = await libraryDatabase;
 
