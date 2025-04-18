@@ -11,6 +11,11 @@ class NavigationMenu extends StatefulWidget {
 class NavMenuState extends State<NavigationMenu> {
   int currentPageIndex = 0;
 
+  final List<String> titles = [
+    "Available Books",
+    "Your Account",
+    ""
+  ];
   final List<Widget> pages = [
     BooksPage(),
     AccountPage(),
@@ -21,7 +26,7 @@ class NavMenuState extends State<NavigationMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Library App"),
+        title: Text(titles[currentPageIndex]),
       ),
 
       body: pages[currentPageIndex],

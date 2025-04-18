@@ -74,7 +74,7 @@ class DBHelper {
     return maps.map((map) => Book.fromMap(map)).toList();
   }
 
-  //Book details function to get a book with its withdrawl dates
+  //Book details function to get a book with its withdraw dates
   Future<List<Map<String, dynamic>>> getBooksWithWithdrawDetails(Database db, String id) async {
     return await db.rawQuery('''
     SELECT 
