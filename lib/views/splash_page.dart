@@ -14,7 +14,7 @@ class _splashPageState extends State<splashPage> {
   void initState() {
     super.initState();
 
-    // 3 second delay for navigation
+    // delay for redirect to login oage
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
